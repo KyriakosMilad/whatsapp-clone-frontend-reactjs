@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import Sidebar from './Sidebar';
+import Chat from './Chat';
 
 export default class Dashboard extends Component {
 	render() {
@@ -8,7 +9,7 @@ export default class Dashboard extends Component {
 			<Container fluid>
 				<Row>
 					<Sidebar />
-					<Col md={10}>1 of 1</Col>
+					<Chat />
 				</Row>
 			</Container>
 		);
