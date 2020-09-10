@@ -1,8 +1,9 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import Dashboard from './Dashboard';
 
 function App() {
-	return <Container>Hello World</Container>;
+	return <Dashboard />;
 }
 
 export default App;

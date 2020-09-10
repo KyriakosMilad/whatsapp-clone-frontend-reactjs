@@ -1,0 +1,7 @@
+.chatCard p, span {
+  color: #000;
+}
+
+.chatCard--link:hover {
+  text-decoration: none;
+}
