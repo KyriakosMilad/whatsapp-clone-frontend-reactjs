@@ -19,7 +19,7 @@ export default class Sidebar extends Component {
 					<ChatCard
 						name="Kyriakos"
 						image="http://lorempixel.com/output/people-h-c-1141-1147-8.jpg"
-						lastMessage="هناك حقيقة مثبتة منذ زمن طويل وهي..."
+						lastMessage="It is a long established fact that a reader will..."
 						lastMessageDate="15:22"
 					/>
 				</div>

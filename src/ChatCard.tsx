@@ -26,8 +26,8 @@ export default class ChatCard extends Component<Props> {
 					/>
 					<span className="float-right mt-2 chatCard--lastMessageDate">{this.props.lastMessageDate}</span>
 					<div className="d-inline ml-2">
-						<span>{this.props.name}</span>
-						<p className="chatCard--lastMessage">{this.props.lastMessage}</p>
+						<span className="chatCard--name">{this.props.name}</span>
+						<p className="chatCard--lastMessage ml-5">{this.props.lastMessage}</p>
 					</div>
 				</div>
 			</a>

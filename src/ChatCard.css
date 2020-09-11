@@ -7,7 +7,11 @@
 }
 
 .chatCard--lastMessage {
-  font-size: 14px;
+  font-size: 15px;
+}
+
+.chatCard--name {
+  font-size: 20px;
 }
 
 .chatCard--link:hover {
