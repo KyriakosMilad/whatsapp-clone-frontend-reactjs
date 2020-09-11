@@ -2,6 +2,18 @@
   color: #000;
 }
 
+.chatCard--lastMessageDate {
+  font-size: 10px;
+}
+
+.chatCard--lastMessage {
+  font-size: 14px;
+}
+
 .chatCard--link:hover {
   text-decoration: none;
+}
+
+.chatCard:hover {
+  background-color: #F5F5F5;
 }

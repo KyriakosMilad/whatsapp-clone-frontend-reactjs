@@ -16,7 +16,7 @@ export default class ChatCard extends Component<Props> {
 	render() {
 		return (
 			<a href="#" className="chatCard--link">
-				<div className="chatCard">
+				<div className="chatCard p-2">
 					<img
 						src={this.props.image}
 						alt={this.props.name}
@@ -24,10 +24,10 @@ export default class ChatCard extends Component<Props> {
 						width="50"
 						height="50"
 					/>
-					<span className="float-right mt-2">{this.props.lastMessageDate}</span>
+					<span className="float-right mt-2 chatCard--lastMessageDate">{this.props.lastMessageDate}</span>
 					<div className="d-inline ml-2">
 						<span>{this.props.name}</span>
-						<p>{this.props.lastMessage}</p>
+						<p className="chatCard--lastMessage">{this.props.lastMessage}</p>
 					</div>
 				</div>
 			</a>

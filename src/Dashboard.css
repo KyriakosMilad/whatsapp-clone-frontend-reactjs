@@ -1,0 +1,13 @@
+@media only screen and (min-width: 768px) {
+	.dashboardContainer {
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+		height: 90vh;
+		margin-top: 40px;
+		overflow: hidden;
+		background: #fff;
+	}
+}
+
+body {
+	background-color: #d9dbd5 !important;
+}
