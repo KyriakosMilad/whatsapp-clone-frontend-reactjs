@@ -1,3 +1,7 @@
+.chatCard {
+  border-top: 1px solid #ddd;
+}
+
 .chatCard p, span {
   color: #000;
 }
