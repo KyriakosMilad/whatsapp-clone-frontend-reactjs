@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { ChatContext } from './../Contexts/ChatContext';
 import './ChatCard.css';
 
 interface Props {
+	id: number;
 	name: string;
 	image: string;
 	lastMessage: string;
@@ -9,13 +11,16 @@ interface Props {
 }
 
 export default class ChatCard extends Component<Props> {
-	constructor(props: Props) {
-		super(props);
-	}
+	static contextType = ChatContext;
 
 	render() {
+		const {  toogleChat } = this.context;
 		return (
-			<a href="#" className="chatCard--link">
+			<a
+				href="/#"
+				className="chatCard--link"
+				onClick={toogleChat}
+			>
 				<div className="chatCard p-2">
 					<img
 						src={this.props.image}
@@ -24,10 +29,14 @@ export default class ChatCard extends Component<Props> {
 						width="50"
 						height="50"
 					/>
-					<span className="float-right mt-2 chatCard--lastMessageDate">{this.props.lastMessageDate}</span>
+					<span className="float-right mt-2 chatCard--lastMessageDate">
+						{this.props.lastMessageDate}
+					</span>
 					<div className="d-inline ml-2">
 						<span className="chatCard--name">{this.props.name}</span>
-						<p className="chatCard--lastMessage ml-5">{this.props.lastMessage}</p>
+						<p className="chatCard--lastMessage ml-5">
+							{this.props.lastMessage}
+						</p>
 					</div>
 				</div>
 			</a>

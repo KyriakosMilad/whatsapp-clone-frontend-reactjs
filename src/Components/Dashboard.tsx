@@ -8,7 +8,7 @@ export default class Dashboard extends Component {
 	render() {
 		return (
 			<Container className="dashboardContainer">
-				<Row>
+				<Row className="h-100 d-flex">
 					<Sidebar />
 					<Chat />
 				</Row>

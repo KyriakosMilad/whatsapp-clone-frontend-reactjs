@@ -1,0 +1,28 @@
+.Sidebar {
+	height: 100% !important;
+	display: flex;
+}
+
+@media only screen and (min-width: 768px) {
+	.chatCards {
+		height: 76%;
+	}
+	.Sidebar {
+		border-right: 1px solid #ddd;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.Sidebar {
+		height: 100vh !important;
+  }
+  .hide-sidebar-sm {
+    display: none !important;
+  }
+}
+
+.newContactButton,
+.newChatButton {
+	height: 75px;
+	border-radius: 0 !important;
+}
