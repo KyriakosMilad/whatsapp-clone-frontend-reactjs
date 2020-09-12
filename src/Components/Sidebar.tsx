@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import ChatCard from './ChatCard';
-import './Sidebar.css';
 import { ChatContext } from '../Contexts/ChatContext';
+import './Styles/Sidebar.css';
 
 export default class Sidebar extends Component {
 	static contextType = ChatContext;

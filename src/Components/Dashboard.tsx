@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Container, Row} from 'react-bootstrap';
-import './Dashboard.css';
 import Sidebar from './Sidebar';
 import Chat from './Chat';
+import './Styles/Dashboard.css';
 
 export default class Dashboard extends Component {
 	render() {

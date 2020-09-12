@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ChatContext } from './../Contexts/ChatContext';
-import './ChatCard.css';
+import './Styles/ChatCard.css';
 
 interface Props {
 	id: number;

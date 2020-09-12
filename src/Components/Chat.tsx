@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap';
 import { ChatContext } from '../Contexts/ChatContext';
-import './Chat.css'
+import './Styles/Chat.css'
 
 export default class Chat extends Component {
 	static contextType = ChatContext;
