@@ -3,6 +3,10 @@
 	display: flex;
 }
 
+.search-input {
+	border-bottom: 1px solid #ddd;
+}
+
 @media only screen and (min-width: 768px) {
 	.chatCards {
 		height: 76%;
@@ -15,10 +19,10 @@
 @media only screen and (max-width: 600px) {
 	.Sidebar {
 		height: 100vh !important;
-  }
-  .hide-sidebar-sm {
-    display: none !important;
-  }
+	}
+	.hide-sidebar-sm {
+		display: none !important;
+	}
 }
 
 .newContactButton,

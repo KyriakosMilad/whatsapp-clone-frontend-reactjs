@@ -12,7 +12,7 @@ export default class Sidebar extends Component {
 
 		return (
 			<Col md={4} className={ showChat ? 'Sidebar px-0 flex-column hide-sidebar-sm' : 'Sidebar px-0 flex-column' }>
-				<Form.Group className="px-3">
+				<Form.Group className="px-3 mb-0 pb-3 search-input">
 					<Form.Control
 						className="mt-3"
 						type="text"
