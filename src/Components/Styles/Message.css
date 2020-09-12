@@ -1,0 +1,12 @@
+.Message p {
+  border-radius: 8px;
+}
+
+.recivedMessage p {
+  background-color: #ddd;
+  width: auto;
+}
+
+.sentMessage p {
+  background-color: #c6d6f8;
+}

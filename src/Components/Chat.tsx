@@ -4,9 +4,15 @@ import { ChatContext } from '../Contexts/ChatContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import './Styles/Chat.css';
+import Message from './Message';
 
 export default class Chat extends Component {
 	static contextType = ChatContext;
+
+	scrollToLastMessage = () => {
+		const messagesDiv = document.getElementById("messages")!;
+		messagesDiv.scrollTop = messagesDiv.scrollHeight;
+	}
 
 	render() {
 		const { showChat, toogleChat } = this.context;
@@ -39,13 +45,9 @@ export default class Chat extends Component {
 						<span>online</span>
 					</div>
 				</div>
-				<div className="Messages overflow-auto flex-grow-1 p-3">
-					<div className="Message d-flex justify-content-start">
-						<p>recived message</p>
-					</div>
-					<div className="Message d-flex justify-content-end">
-						<p>sent messsage</p>
-					</div>
+				<div className="Messages overflow-auto flex-grow-1 p-3" id="messages">
+					<Message message="sent message" messageSent={true} />
+					<Message message="recived message" messageSent={false} />
 				</div>
 				<div className="typeMessage">
 					<Form>
