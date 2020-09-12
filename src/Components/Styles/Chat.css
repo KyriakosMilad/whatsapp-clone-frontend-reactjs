@@ -3,3 +3,45 @@
 		display: none !important;
 	}
 }
+
+.Chat {
+	display: flex;
+	overflow: hidden;
+}
+
+.ChatHeader {
+	background-color: #ededed;
+}
+
+.ChatHeader .name {
+	font-size: 20px;
+}
+
+.backButton {
+	font-size: 30px;
+	border: 0;
+	color: #197bff;
+}
+
+@media only screen and (min-width: 600px) {
+	.backButton {
+		display: none !important;
+	}
+	.Chat {
+		/* height: 100vh; */
+		height: 100% !important;
+	}
+	.Messages {
+		height: 70%;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.Chat {
+		height: 100vh;
+	}
+}
+
+.typeMessage {
+	background-color: #ededed;
+}
