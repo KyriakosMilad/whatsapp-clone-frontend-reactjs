@@ -29,14 +29,14 @@ export default class Sidebar extends Component {
 						lastMessageDate="15:22"
 					/>
 					<ChatCard
-						id={1}
+						id={20}
 						name="Kyriakos"
 						image="http://lorempixel.com/output/people-h-c-1141-1147-8.jpg"
 						lastMessage="It is a long established fact that a reader will..."
 						lastMessageDate="15:22"
 					/>
 					<ChatCard
-						id={1}
+						id={30}
 						name="Kyriakos"
 						image="http://lorempixel.com/output/people-h-c-1141-1147-8.jpg"
 						lastMessage="It is a long established fact that a reader will..."

@@ -14,12 +14,13 @@ export default class ChatCard extends Component<Props> {
 	static contextType = ChatContext;
 
 	render() {
-		const {  toogleChat } = this.context;
+		const {  changeChatId } = this.context;
 		return (
 			<a
 				href="/#"
 				className="chatCard--link"
-				onClick={toogleChat}
+				onClick={changeChatId}
+				id={'conversationId--' + this.props.id}
 			>
 				<div className="chatCard p-2">
 					<img

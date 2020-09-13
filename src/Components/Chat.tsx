@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Form, Button, InputGroup, FormControl } from 'react-bootstrap';
+import { Col, Form, Button } from 'react-bootstrap';
 import { ChatContext } from '../Contexts/ChatContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +15,7 @@ export default class Chat extends Component {
 	}
 
 	render() {
-		const { showChat, toogleChat } = this.context;
+		const { showChat, hideChat } = this.context;
 
 		return (
 			<Col
@@ -27,7 +27,7 @@ export default class Chat extends Component {
 				}
 			>
 				<div className="ChatHeader px-3 pt-4">
-					<button className="backButton" onClick={toogleChat}>
+					<button className="backButton" onClick={hideChat}>
 						<FontAwesomeIcon icon={faChevronLeft} />
 					</button>
 					<div className="d-inline">
