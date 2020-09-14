@@ -6,13 +6,30 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import './Styles/Chat.css';
 import Message from './Message';
 
-export default class Chat extends Component {
+interface Props {}
+interface State {
+	newMessage: string;
+}
+
+export default class Chat extends Component<Props, State> {
 	static contextType = ChatContext;
 
-	scrollToLastMessage = () => {
-		const messagesDiv = document.getElementById("messages")!;
-		messagesDiv.scrollTop = messagesDiv.scrollHeight;
+	constructor(props: Props) {
+		super(props);
+
+		this.state = {
+			newMessage: '',
+		};
 	}
+
+	handleChangeNewMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ newMessage: e.target.value });
+	};
+
+	scrollToLastMessage = () => {
+		const messagesDiv = document.getElementById('messages')!;
+		messagesDiv.scrollTop = messagesDiv.scrollHeight;
+	};
 
 	render() {
 		const { showChat, hideChat } = this.context;
@@ -56,6 +73,7 @@ export default class Chat extends Component {
 								<Form.Control
 									className="mb-2"
 									placeholder="type your message..."
+									onChange={this.handleChangeNewMessage}
 								/>
 							</Col>
 							<Col xs="2" className="">
