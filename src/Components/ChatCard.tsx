@@ -6,8 +6,8 @@ interface Props {
 	id: number;
 	name: string;
 	image: string;
-	lastMessage: string;
-	lastMessageDate: string;
+	lastMessage?: string;
+	lastMessageDate?: string;
 }
 
 export default class ChatCard extends Component<Props> {

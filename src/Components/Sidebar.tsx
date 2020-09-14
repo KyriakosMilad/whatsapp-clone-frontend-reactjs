@@ -96,8 +96,6 @@ export default class Sidebar extends Component<Props, State> {
 						id={1}
 						name="Kyriakos"
 						image="http://lorempixel.com/output/people-h-c-1141-1147-8.jpg"
-						lastMessage="It is a long established fact that a reader will..."
-						lastMessageDate="15:22"
 					/>
 					<ChatCard
 						id={1}
