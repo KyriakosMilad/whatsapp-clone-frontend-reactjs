@@ -1,17 +1,51 @@
 import React, { Component } from 'react';
-import { Col, Form, Row, Button } from 'react-bootstrap';
+import { Col, Form, Row, Button, Modal } from 'react-bootstrap';
 import ChatCard from './ChatCard';
 import { ChatContext } from '../Contexts/ChatContext';
 import './Styles/Sidebar.css';
 
-export default class Sidebar extends Component {
+interface Props {}
+interface State {
+	showNewContactModal: boolean;
+	newContactPhoneNumber: string;
+}
+
+export default class Sidebar extends Component<Props, State> {
 	static contextType = ChatContext;
 
+	constructor(props: Props) {
+		super(props);
+
+		this.state = {
+			showNewContactModal: false,
+			newContactPhoneNumber: '',
+		};
+	}
+
+	handleCloseNewContactModal = () => {
+		this.setState({ showNewContactModal: false });
+	};
+
+	showNewContactModal = () => {
+		this.setState({ showNewContactModal: true });
+	};
+
+	handleChangeNewContactPhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ newContactPhoneNumber: e.target.value });
+	};
+
 	render() {
-		const {  showChat } = this.context;
+		const { showChat } = this.context;
 
 		return (
-			<Col md={4} className={ showChat ? 'Sidebar px-0 flex-column hide-sidebar-sm' : 'Sidebar px-0 flex-column' }>
+			<Col
+				md={4}
+				className={
+					showChat
+						? 'Sidebar px-0 flex-column hide-sidebar-sm'
+						: 'Sidebar px-0 flex-column'
+				}
+			>
 				<Form.Group className="px-3 mb-0 pb-3 search-input">
 					<Form.Control
 						className="mt-3"
@@ -80,12 +114,57 @@ export default class Sidebar extends Component {
 				</div>
 				<Row className="buttonsRow mx-0">
 					<Col xs={6} className="px-0">
-						<Button type="button" className="w-100 newChatButton">New chat</Button>
+						<Button type="button" className="w-100 newChatButton">
+							New chat
+						</Button>
 					</Col>
 					<Col xs={6} className="px-0">
-						<Button type="button" variant="success" className="w-100 newContactButton">New contact</Button>
+						<Button
+							type="button"
+							variant="success"
+							className="w-100 newContactButton"
+							onClick={this.showNewContactModal}
+						>
+							New contact
+						</Button>
 					</Col>
 				</Row>
+				<Modal
+					show={this.state.showNewContactModal}
+					onHide={this.handleCloseNewContactModal}
+					centered
+				>
+					<Modal.Header closeButton>
+						<Modal.Title>Add new contact</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<Form>
+							<Form.Group>
+								<Form.Label>Enter new contact phone number:</Form.Label>
+								<Form.Control
+									type="text"
+									name="newContactPhoneNumber"
+									onChange={this.handleChangeNewContactPhoneNumber}
+								></Form.Control>
+							</Form.Group>
+						</Form>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button
+							variant="secondary"
+							onClick={this.handleCloseNewContactModal}
+						>
+							Close
+						</Button>
+						<Button
+							type="submit"
+							variant="success"
+							onClick={this.handleCloseNewContactModal}
+						>
+							Add
+						</Button>
+					</Modal.Footer>
+				</Modal>
 			</Col>
 		);
 	}
