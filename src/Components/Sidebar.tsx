@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Form, Row, Button, Modal } from 'react-bootstrap';
+import { Col, Form, Button, Modal } from 'react-bootstrap';
 import ChatCard from './ChatCard';
 import { ChatContext } from '../Contexts/ChatContext';
 import './Styles/Sidebar.css';
