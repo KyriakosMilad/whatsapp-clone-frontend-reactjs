@@ -4,9 +4,10 @@
 
 .recivedMessage p {
   background-color: #ddd;
-  width: auto;
+  border-radius: 10px 10px 10px 0;
 }
 
 .sentMessage p {
   background-color: #c6d6f8;
+  border-radius: 10px 10px 0 10px;
 }
