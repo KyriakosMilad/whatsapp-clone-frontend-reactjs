@@ -30,7 +30,9 @@ export default class Sidebar extends Component<Props, State> {
 		this.setState({ showNewContactModal: true });
 	};
 
-	handleChangeNewContactPhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+	handleChangeNewContactPhoneNumber = (
+		e: React.ChangeEvent<HTMLInputElement>
+	) => {
 		this.setState({ newContactPhoneNumber: e.target.value });
 	};
 
@@ -112,23 +114,14 @@ export default class Sidebar extends Component<Props, State> {
 						lastMessageDate="15:22"
 					/>
 				</div>
-				<Row className="buttonsRow mx-0">
-					<Col xs={6} className="px-0">
-						<Button type="button" className="w-100 newChatButton">
-							New chat
-						</Button>
-					</Col>
-					<Col xs={6} className="px-0">
-						<Button
-							type="button"
-							variant="success"
-							className="w-100 newContactButton"
-							onClick={this.showNewContactModal}
-						>
-							New contact
-						</Button>
-					</Col>
-				</Row>
+				<Button
+					type="button"
+					variant="success"
+					className="w-100 newContactButton"
+					onClick={this.showNewContactModal}
+				>
+					New contact
+				</Button>
 				<Modal
 					show={this.state.showNewContactModal}
 					onHide={this.handleCloseNewContactModal}
