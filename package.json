@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "WhatsApp clone frontend made with react.js.",
   "private": true,
+  "author": "Kyriakos Milad",
   "repository": "https://github.com/KyriakosMilad/whatsapp-clone-frontend-reactjs",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
