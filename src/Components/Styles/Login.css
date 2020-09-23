@@ -1,3 +1,26 @@
 .react-tel-input .form-control {
 	width: 100%;
 }
+
+.authCodeInput {
+	border: none !important;
+	width: 9ch !important;
+	background: repeating-linear-gradient(
+			90deg,
+			dimgrey 0,
+			dimgrey 1ch,
+			transparent 0,
+			transparent 1.5ch
+		)
+		0 100%/100% 2px no-repeat !important;
+	color: dimgrey !important;
+	font: 5ch consolas !important;
+	letter-spacing: 0.5ch !important;
+	font-size: 70px !important;
+}
+
+.authCodeInput:focus {
+	outline: none !important;
+	color: dodgerblue;
+	box-shadow: none !important;
+}

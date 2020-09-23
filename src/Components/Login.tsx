@@ -9,25 +9,35 @@ interface Props {}
 
 interface State {
 	phoneNumber?: string;
-	showNumber?: boolean;
+	authCodeCreated?: boolean;
 	loading?: boolean;
+	authCode?: number;
 }
 
 export default class Login extends Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			phoneNumber: '',
-			showNumber: false,
+			authCodeCreated: false,
 			loading: false,
 		};
 	}
 
-	handlePhoneNumberChange = (value: string) => {
+	handlePhoneNumberChange = (value: string): void => {
 		this.setState({ phoneNumber: '+' + value });
 	};
 
-	handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+	handleAuthCodeChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+		this.setState({ authCode: Number(evt.target.value) }, () => {
+			if (this.state.authCode?.toString().length === 6) {
+				this.setState({ loading: true });
+			}
+		});
+	};
+
+	handleSubmitCreateAuthCode = (
+		evt: React.FormEvent<HTMLFormElement>
+	): void => {
 		evt.preventDefault();
 		this.setState({ loading: true });
 	};
@@ -39,24 +49,37 @@ export default class Login extends Component<Props, State> {
 				style={{ height: '100vh' }}
 			>
 				<Loader loading={this.state.loading ? true : false} />
-				{this.state.showNumber ? <h1>{this.state.phoneNumber}</h1> : ''}
-				<Form className="w-100" onSubmit={this.handleSubmit}>
-					<Form.Group>
-						<Form.Label>Enter your phone number:</Form.Label>
-						<PhoneInput
-							country={'eg'}
-							preferredCountries={['eg']}
-							placeholder="+20"
-							value={this.state.phoneNumber}
-							excludeCountries={['il']}
-							onChange={this.handlePhoneNumberChange}
-							enableSearch={true}
-						/>
-					</Form.Group>
-					<Button type="submit" variant="success" className="mr-2">
-						Sign in
-					</Button>
-				</Form>
+				{!this.state.authCodeCreated ? (
+					<Form className="w-100" onSubmit={this.handleSubmitCreateAuthCode}>
+						<Form.Group>
+							<Form.Label>Enter your phone number:</Form.Label>
+							<PhoneInput
+								country={'eg'}
+								preferredCountries={['eg']}
+								placeholder="+20"
+								excludeCountries={['il']}
+								onChange={this.handlePhoneNumberChange}
+								enableSearch={true}
+							/>
+						</Form.Group>
+						<Button type="submit" variant="success" className="mr-2">
+							Sign in
+						</Button>
+					</Form>
+				) : (
+					<Form className="w-100">
+						<Form.Group>
+							<Form.Label style={{ fontSize: '20px' }}>
+								Enter auth code sent to your phone number:
+							</Form.Label>
+							<Form.Control
+								onChange={this.handleAuthCodeChange}
+								className="authCodeInput p-0 m-auto"
+								maxLength={6}
+							/>
+						</Form.Group>
+					</Form>
+				)}
 			</Container>
 		);
 	}
