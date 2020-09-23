@@ -44,5 +44,8 @@
       "last 1 safari version"
     ]
   },
-  "license": "GNU GPLv3"
+  "license": "GNU GPLv3",
+  "devDependencies": {
+    "react-phone-input-2": "^2.13.8"
+  }
 }

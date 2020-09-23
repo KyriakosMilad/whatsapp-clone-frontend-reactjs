@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import Loader from './Loader';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+import './Styles/Login.css';
 
 interface Props {}
 
@@ -16,16 +19,17 @@ export default class Login extends Component<Props, State> {
 		this.state = {
 			phoneNumber: '',
 			showNumber: false,
-			loading: true,
+			loading: false,
 		};
 	}
 
-	handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-		this.setState({ [evt.target.name]: evt.target.value });
+	handlePhoneNumberChange = (value: string) => {
+		this.setState({ phoneNumber: '+' + value });
 	};
 
 	handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
 		evt.preventDefault();
+		this.setState({ loading: true });
 	};
 
 	render() {
@@ -39,11 +43,15 @@ export default class Login extends Component<Props, State> {
 				<Form className="w-100" onSubmit={this.handleSubmit}>
 					<Form.Group>
 						<Form.Label>Enter your phone number:</Form.Label>
-						<Form.Control
-							type="text"
-							name="phoneNumber"
-							onChange={this.handleChange}
-						></Form.Control>
+						<PhoneInput
+							country={'eg'}
+							preferredCountries={['eg']}
+							placeholder="+20"
+							value={this.state.phoneNumber}
+							excludeCountries={['il']}
+							onChange={this.handlePhoneNumberChange}
+							enableSearch={true}
+						/>
 					</Form.Group>
 					<Button type="submit" variant="success" className="mr-2">
 						Sign in
