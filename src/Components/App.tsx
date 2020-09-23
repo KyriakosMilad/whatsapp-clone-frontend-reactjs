@@ -1,11 +1,12 @@
 import React from 'react';
-import Dashboard from './Dashboard';
+// import Dashboard from './Dashboard';
+import Login from './Login';
 import { ChatProvider } from '../Contexts/ChatContext';
 
 function App() {
 	return (
 		<ChatProvider>
-			<Dashboard />
+			<Login />
 		</ChatProvider>
 	);
 }

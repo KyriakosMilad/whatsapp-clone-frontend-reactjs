@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
+import Loader from './Loader';
 
 interface Props {}
 
@@ -15,7 +16,7 @@ export default class Login extends Component<Props, State> {
 		this.state = {
 			phoneNumber: '',
 			showNumber: false,
-			loading: false,
+			loading: true,
 		};
 	}
 
@@ -33,6 +34,7 @@ export default class Login extends Component<Props, State> {
 				className="d-flex align-items-center"
 				style={{ height: '100vh' }}
 			>
+				<Loader loading={this.state.loading ? true : false} />
 				{this.state.showNumber ? <h1>{this.state.phoneNumber}</h1> : ''}
 				<Form className="w-100" onSubmit={this.handleSubmit}>
 					<Form.Group>
