@@ -4,29 +4,27 @@ import { Container, Form, Button } from 'react-bootstrap';
 interface Props {}
 
 interface State {
-	phoneNumber: number;
-	showNumber: number;
+	phoneNumber?: string;
+	showNumber?: boolean;
+	loading?: boolean;
 }
 
 export default class Login extends Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			phoneNumber: 0,
-			showNumber: 0,
+			phoneNumber: '',
+			showNumber: false,
+			loading: false,
 		};
 	}
 
 	handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-		this.setState({ [evt.target.name]: Number(evt.target.value) } as Pick<
-			State,
-			keyof State
-		>);
+		this.setState({ [evt.target.name]: evt.target.value });
 	};
 
-	handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-		this.setState({ showNumber: 1 });
+	handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+		evt.preventDefault();
 	};
 
 	render() {
@@ -35,7 +33,7 @@ export default class Login extends Component<Props, State> {
 				className="d-flex align-items-center"
 				style={{ height: '100vh' }}
 			>
-        {this.state.showNumber ? <h1>{this.state.phoneNumber}</h1> : ''}
+				{this.state.showNumber ? <h1>{this.state.phoneNumber}</h1> : ''}
 				<Form className="w-100" onSubmit={this.handleSubmit}>
 					<Form.Group>
 						<Form.Label>Enter your phone number:</Form.Label>
