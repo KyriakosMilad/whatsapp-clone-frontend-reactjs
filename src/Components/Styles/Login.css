@@ -24,3 +24,7 @@
 	color: dodgerblue;
 	box-shadow: none !important;
 }
+
+.errMsg {
+	color: red;
+}

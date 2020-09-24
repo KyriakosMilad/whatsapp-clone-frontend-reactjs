@@ -4,6 +4,7 @@ import Loader from './Loader';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './Styles/Login.css';
+import axios from 'axios';
 
 interface Props {}
 
@@ -12,6 +13,7 @@ interface State {
 	authCodeCreated?: boolean;
 	loading?: boolean;
 	authCode?: number;
+	errMsg?: string;
 }
 
 export default class Login extends Component<Props, State> {
@@ -27,19 +29,62 @@ export default class Login extends Component<Props, State> {
 		this.setState({ phoneNumber: '+' + value });
 	};
 
-	handleAuthCodeChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-		this.setState({ authCode: Number(evt.target.value) }, () => {
-			if (this.state.authCode?.toString().length === 6) {
-				this.setState({ loading: true });
-			}
-		});
-	};
-
 	handleSubmitCreateAuthCode = (
 		evt: React.FormEvent<HTMLFormElement>
 	): void => {
 		evt.preventDefault();
-		this.setState({ loading: true });
+		this.setState({ loading: true }, () => {
+			axios
+				.post('http://localhost:4300/api/users/signin', {
+					phoneNumber: this.state.phoneNumber,
+				})
+				.then((res) => {
+					console.log(res);
+					if (res.data.status === 'queued') {
+						this.setState({
+							errMsg: '',
+							authCodeCreated: true,
+							loading: false,
+						});
+					} else {
+						this.setState({
+							errMsg: 'Make sure you enter valid phone number',
+							loading: false,
+						});
+					}
+				})
+				.catch((err) => {
+					this.setState({
+						errMsg: 'Make sure you enter valid phone number',
+						loading: false,
+					});
+				});
+		});
+	};
+
+	handleAuthCodeChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+		this.setState({ authCode: Number(evt.target.value) }, () => {
+			if (this.state.authCode?.toString().length === 6) {
+				this.setState({ loading: true }, () => {
+					axios
+						.post('http://localhost:4300/api/users/verify', {
+							phoneNumber: this.state.phoneNumber,
+							authCode: this.state.authCode,
+						})
+						.then((res) => {
+							console.log(res);
+							this.setState({ errMsg: '', loading: false });
+						})
+						.catch((err) => {
+							this.setState({
+								errMsg:
+									'auth code not valid, try again and make sure to right the code you recived correctly',
+								loading: false,
+							});
+						});
+				});
+			}
+		});
 	};
 
 	render() {
@@ -56,11 +101,14 @@ export default class Login extends Component<Props, State> {
 							<PhoneInput
 								country={'eg'}
 								preferredCountries={['eg']}
-								placeholder="+20"
+								placeholder="Enter your phone number..."
 								excludeCountries={['il']}
 								onChange={this.handlePhoneNumberChange}
 								enableSearch={true}
 							/>
+							{this.state.errMsg ? (
+								<span className="errMsg">{this.state.errMsg}</span>
+							) : null}
 						</Form.Group>
 						<Button type="submit" variant="success" className="mr-2">
 							Sign in
@@ -72,6 +120,9 @@ export default class Login extends Component<Props, State> {
 							<Form.Label style={{ fontSize: '20px' }}>
 								Enter auth code sent to your phone number:
 							</Form.Label>
+							{this.state.errMsg ? (
+								<span className="errMsg d-block">{this.state.errMsg}</span>
+							) : null}
 							<Form.Control
 								onChange={this.handleAuthCodeChange}
 								className="authCodeInput p-0 m-auto"
