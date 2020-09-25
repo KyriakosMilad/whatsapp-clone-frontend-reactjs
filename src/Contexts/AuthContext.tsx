@@ -34,16 +34,12 @@ export class AuthProvider extends Component<Props, State> {
 	};
 
 	updateJWT = (jwt: string): void => {
-		console.log('updateing jwt ', jwt);
 		if (this.checkJWT(jwt)) {
-			console.log('set jwt ', jwt);
 			localStorage.setItem(PREFIX, jwt);
-			this.setState({ jwt: jwt }, () => {
-				console.log('jwt updated ', this.state.jwt);
-			});
+			this.setState({ jwt: jwt });
 		}
 	};
-	
+
 	render() {
 		return (
 			<AuthContext.Provider

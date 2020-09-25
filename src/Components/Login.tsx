@@ -6,14 +6,15 @@ import 'react-phone-input-2/lib/style.css';
 import './Styles/Login.css';
 import axios from 'axios';
 import { AuthContext } from '../Contexts/AuthContext';
+import config from '../keys.config';
+import Auth from './Auth';
 
 interface Props {}
 
 interface State {
 	phoneNumber?: string;
-	authCodeCreated?: boolean;
-	loading?: boolean;
-	authCode?: number;
+	authCodeCreated: boolean;
+	loading: boolean;
 	errMsg?: string;
 }
 
@@ -38,7 +39,7 @@ export default class Login extends Component<Props, State> {
 		evt.preventDefault();
 		this.setState({ loading: true }, () => {
 			axios
-				.post('http://localhost:4300/api/users/signin', {
+				.post(config.hostname + '/api/users/signin', {
 					phoneNumber: this.state.phoneNumber,
 				})
 				.then((res) => {
@@ -61,32 +62,6 @@ export default class Login extends Component<Props, State> {
 						loading: false,
 					});
 				});
-		});
-	};
-
-	handleAuthCodeChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-		const { updateJWT } = this.context;
-		this.setState({ authCode: Number(evt.target.value) }, () => {
-			if (this.state.authCode?.toString().length === 6) {
-				this.setState({ loading: true }, () => {
-					axios
-						.post('http://localhost:4300/api/users/verify', {
-							phoneNumber: this.state.phoneNumber,
-							authCode: this.state.authCode,
-						})
-						.then((res) => {
-							this.setState({ errMsg: '', loading: false });
-							updateJWT(res.data.token);
-						})
-						.catch((err) => {
-							this.setState({
-								errMsg:
-									'auth code not valid, try again and make sure to right the code you recived correctly',
-								loading: false,
-							});
-						});
-				});
-			}
 		});
 	};
 
@@ -118,21 +93,7 @@ export default class Login extends Component<Props, State> {
 						</Button>
 					</Form>
 				) : (
-					<Form className="w-100">
-						<Form.Group>
-							<Form.Label style={{ fontSize: '20px' }}>
-								Enter auth code sent to your phone number:
-							</Form.Label>
-							{this.state.errMsg ? (
-								<span className="errMsg d-block">{this.state.errMsg}</span>
-							) : null}
-							<Form.Control
-								onChange={this.handleAuthCodeChange}
-								className="authCodeInput p-0 m-auto"
-								maxLength={6}
-							/>
-						</Form.Group>
-					</Form>
+					<Auth phoneNumber={String(this.state.phoneNumber)} />
 				)}
 			</Container>
 		);
