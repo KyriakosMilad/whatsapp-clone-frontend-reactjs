@@ -5,6 +5,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './Styles/Login.css';
 import axios from 'axios';
+import { AuthContext } from '../Contexts/AuthContext';
 
 interface Props {}
 
@@ -17,6 +18,8 @@ interface State {
 }
 
 export default class Login extends Component<Props, State> {
+	static contextType = AuthContext;
+
 	constructor(props: Props) {
 		super(props);
 		this.state = {
@@ -39,7 +42,6 @@ export default class Login extends Component<Props, State> {
 					phoneNumber: this.state.phoneNumber,
 				})
 				.then((res) => {
-					console.log(res);
 					if (res.data.status === 'queued') {
 						this.setState({
 							errMsg: '',
@@ -63,6 +65,7 @@ export default class Login extends Component<Props, State> {
 	};
 
 	handleAuthCodeChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+		const { updateJWT } = this.context;
 		this.setState({ authCode: Number(evt.target.value) }, () => {
 			if (this.state.authCode?.toString().length === 6) {
 				this.setState({ loading: true }, () => {
@@ -72,8 +75,8 @@ export default class Login extends Component<Props, State> {
 							authCode: this.state.authCode,
 						})
 						.then((res) => {
-							console.log(res);
 							this.setState({ errMsg: '', loading: false });
+							updateJWT(res.data.token);
 						})
 						.catch((err) => {
 							this.setState({
