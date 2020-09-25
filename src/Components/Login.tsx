@@ -4,17 +4,23 @@ import Loader from './Loader';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './Styles/Login.css';
+import axios from 'axios';
+import { AuthContext } from '../Contexts/AuthContext';
+import config from '../keys.config';
+import Auth from './Auth';
 
 interface Props {}
 
 interface State {
 	phoneNumber?: string;
-	authCodeCreated?: boolean;
-	loading?: boolean;
-	authCode?: number;
+	authCodeCreated: boolean;
+	loading: boolean;
+	errMsg?: string;
 }
 
 export default class Login extends Component<Props, State> {
+	static contextType = AuthContext;
+
 	constructor(props: Props) {
 		super(props);
 		this.state = {
@@ -27,19 +33,36 @@ export default class Login extends Component<Props, State> {
 		this.setState({ phoneNumber: '+' + value });
 	};
 
-	handleAuthCodeChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-		this.setState({ authCode: Number(evt.target.value) }, () => {
-			if (this.state.authCode?.toString().length === 6) {
-				this.setState({ loading: true });
-			}
-		});
-	};
-
 	handleSubmitCreateAuthCode = (
 		evt: React.FormEvent<HTMLFormElement>
 	): void => {
 		evt.preventDefault();
-		this.setState({ loading: true });
+		this.setState({ loading: true }, () => {
+			axios
+				.post(config.hostname + '/api/users/signin', {
+					phoneNumber: this.state.phoneNumber,
+				})
+				.then((res) => {
+					if (res.data.status === 'queued') {
+						this.setState({
+							errMsg: '',
+							authCodeCreated: true,
+							loading: false,
+						});
+					} else {
+						this.setState({
+							errMsg: 'Make sure you enter valid phone number',
+							loading: false,
+						});
+					}
+				})
+				.catch((err) => {
+					this.setState({
+						errMsg: 'Make sure you enter valid phone number',
+						loading: false,
+					});
+				});
+		});
 	};
 
 	render() {
@@ -56,29 +79,21 @@ export default class Login extends Component<Props, State> {
 							<PhoneInput
 								country={'eg'}
 								preferredCountries={['eg']}
-								placeholder="+20"
+								placeholder="Enter your phone number..."
 								excludeCountries={['il']}
 								onChange={this.handlePhoneNumberChange}
 								enableSearch={true}
 							/>
+							{this.state.errMsg ? (
+								<span className="errMsg">{this.state.errMsg}</span>
+							) : null}
 						</Form.Group>
 						<Button type="submit" variant="success" className="mr-2">
 							Sign in
 						</Button>
 					</Form>
 				) : (
-					<Form className="w-100">
-						<Form.Group>
-							<Form.Label style={{ fontSize: '20px' }}>
-								Enter auth code sent to your phone number:
-							</Form.Label>
-							<Form.Control
-								onChange={this.handleAuthCodeChange}
-								className="authCodeInput p-0 m-auto"
-								maxLength={6}
-							/>
-						</Form.Group>
-					</Form>
+					<Auth phoneNumber={String(this.state.phoneNumber)} />
 				)}
 			</Container>
 		);
