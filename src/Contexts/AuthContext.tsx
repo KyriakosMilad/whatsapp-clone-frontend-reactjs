@@ -1,5 +1,6 @@
 import React, { Component, createContext } from 'react';
 import axios from 'axios';
+import config from '../keys.config';
 
 interface Props {}
 interface State {
@@ -21,7 +22,7 @@ export class AuthProvider extends Component<Props, State> {
 
 	checkJWT = (jwt: string): Promise<boolean> => {
 		return axios
-			.post('http://localhost:4300/api/users/verifyjwt', {
+			.post(config.hostname + '/api/users/verifyjwt', {
 				jwt: jwt,
 			})
 			.then((res) => {
