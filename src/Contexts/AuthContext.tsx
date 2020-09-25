@@ -29,6 +29,7 @@ export class AuthProvider extends Component<Props, State> {
 				return false;
 			})
 			.catch((err) => {
+				this.setState({ jwt: '' });
 				return false;
 			});
 	};
