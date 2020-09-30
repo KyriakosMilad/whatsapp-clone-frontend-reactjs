@@ -22,17 +22,17 @@ export default class Sidebar extends Component<Props, State> {
 		};
 	}
 
-	handleCloseNewContactModal = () => {
+	handleCloseNewContactModal = (): void => {
 		this.setState({ showNewContactModal: false });
 	};
 
-	showNewContactModal = () => {
+	showNewContactModal = (): void => {
 		this.setState({ showNewContactModal: true });
 	};
 
 	handleChangeNewContactPhoneNumber = (
 		e: React.ChangeEvent<HTMLInputElement>
-	) => {
+	): void => {
 		this.setState({ newContactPhoneNumber: e.target.value });
 	};
 

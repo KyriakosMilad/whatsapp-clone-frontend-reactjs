@@ -22,11 +22,11 @@ export default class Chat extends Component<Props, State> {
 		};
 	}
 
-	handleChangeNewMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
+	handleChangeNewMessage = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		this.setState({ newMessage: e.target.value });
 	};
 
-	scrollToLastMessage = () => {
+	scrollToLastMessage = (): void => {
 		const messagesDiv = document.getElementById('messages')!;
 		messagesDiv.scrollTop = messagesDiv.scrollHeight;
 	};
