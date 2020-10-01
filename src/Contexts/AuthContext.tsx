@@ -7,7 +7,7 @@ interface State {
 	jwt: string;
 }
 
-const PREFIX: string = 'whatsapp-clong-jwt';
+const PREFIX: string = config.jwtPrefix;
 
 export const AuthContext = createContext({
 	jwt: '',

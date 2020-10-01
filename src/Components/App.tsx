@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Dashboard from './Dashboard';
 import Login from './Login';
 import { AuthContext } from '../Contexts/AuthContext';
+import config from '../keys.config';
 
-const PREFIX: string = 'whatsapp-clong-jwt';
+const PREFIX: string = config.jwtPrefix;
 
 export default class App extends Component {
 	static contextType = AuthContext;
