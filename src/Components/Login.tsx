@@ -43,22 +43,15 @@ export default class Login extends Component<Props, State> {
 					phoneNumber: this.state.phoneNumber,
 				})
 				.then((res) => {
-					if (res.data.status === 'queued') {
-						this.setState({
-							errMsg: '',
-							authCodeCreated: true,
-							loading: false,
-						});
-					} else {
-						this.setState({
-							errMsg: 'Make sure you enter valid phone number',
-							loading: false,
-						});
-					}
+					this.setState({
+						errMsg: '',
+						authCodeCreated: true,
+						loading: false,
+					});
 				})
 				.catch((err) => {
 					this.setState({
-						errMsg: 'Make sure you enter valid phone number',
+						errMsg: err.response.data.error,
 						loading: false,
 					});
 				});

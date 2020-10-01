@@ -26,7 +26,7 @@ export class AuthProvider extends Component<Props, State> {
 				jwt: jwt,
 			})
 			.then((res) => {
-				if (res.data === true) return true;
+				if (res.data.valid === true) return true;
 				return false;
 			})
 			.catch((err) => {

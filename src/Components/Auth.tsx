@@ -6,7 +6,7 @@ import Loader from './Loader';
 import { AuthContext } from '../Contexts/AuthContext';
 
 interface Props {
-  phoneNumber: string;
+	phoneNumber: string;
 }
 
 interface State {
@@ -15,8 +15,8 @@ interface State {
 	errMsg?: string;
 }
 export default class Auth extends Component<Props, State> {
-  static contextType = AuthContext;
-  
+	static contextType = AuthContext;
+
 	constructor(props: Props) {
 		super(props);
 		this.state = {
@@ -40,8 +40,7 @@ export default class Auth extends Component<Props, State> {
 						})
 						.catch((err) => {
 							this.setState({
-								errMsg:
-									'auth code not valid, try again and make sure to right the code you recived correctly',
+								errMsg: err.response.data.error,
 								loading: false,
 							});
 						});
@@ -53,7 +52,7 @@ export default class Auth extends Component<Props, State> {
 	render() {
 		return (
 			<Form className="w-100">
-        <Loader loading={this.state.loading ? true : false} />
+				<Loader loading={this.state.loading ? true : false} />
 				<Form.Group>
 					<Form.Label style={{ fontSize: '20px' }}>
 						Enter auth code sent to your phone number:
