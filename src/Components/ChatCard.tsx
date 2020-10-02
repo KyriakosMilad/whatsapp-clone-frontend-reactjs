@@ -13,10 +13,6 @@ interface Props {
 export default class ChatCard extends Component<Props> {
 	static contextType = DashboardLayoutContext;
 
-	constructor(props: Props) {
-		super(props);
-	}
-	
 	changeChatId = (): void => {
 		const { changeChatId } = this.context;
 		changeChatId(this.props.id);
