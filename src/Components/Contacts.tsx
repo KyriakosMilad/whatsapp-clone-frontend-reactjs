@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import ChatCard from './ChatCard';
+import userDefaultImg from './Images/user.jpg';
 
 interface Props {}
 
@@ -50,7 +51,7 @@ export default class Conversations extends Component<Props, State> {
 					<ChatCard
 						id={1}
 						name="Kyriakos"
-						image="http://lorempixel.com/output/people-h-c-1141-1147-8.jpg"
+						image={userDefaultImg}
 						lastMessage="It is a long established fact that a reader will..."
 						lastMessageDate="15:22"
 					/>
