@@ -2,6 +2,7 @@ import { faAddressBook } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { DashboardLayoutContext } from '../Contexts/DashboardLayoutContext';
 import ChatCard from './ChatCard';
 import userDefaultImg from './Images/user.jpg';
 
@@ -13,6 +14,8 @@ interface State {
 }
 
 export default class Conversations extends Component<Props, State> {
+	static contextType = DashboardLayoutContext;
+
 	constructor(props: Props) {
 		super(props);
 
@@ -35,6 +38,8 @@ export default class Conversations extends Component<Props, State> {
 	};
 
 	render() {
+		const { toogleSidebar } = this.context;
+
 		return (
 			<>
 				<Form.Group className="px-3 mb-0 pb-3 search-input">
@@ -55,7 +60,7 @@ export default class Conversations extends Component<Props, State> {
 					/>
 				</div>
 				<div className="toogleSidebarButton">
-					<Button variant="success">
+					<Button variant="success" onClick={toogleSidebar}>
 						<FontAwesomeIcon icon={faAddressBook} />
 					</Button>
 				</div>

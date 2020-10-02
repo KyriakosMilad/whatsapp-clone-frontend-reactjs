@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Form, Button } from 'react-bootstrap';
-import { ChatContext } from '../Contexts/ChatContext';
+import { DashboardLayoutContext } from '../Contexts/DashboardLayoutContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import './Styles/Chat.css';
@@ -14,7 +14,7 @@ interface State {
 }
 
 export default class Chat extends Component<Props, State> {
-	static contextType = ChatContext;
+	static contextType = DashboardLayoutContext;
 
 	constructor(props: Props) {
 		super(props);

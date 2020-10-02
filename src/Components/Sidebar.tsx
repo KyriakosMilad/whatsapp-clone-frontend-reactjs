@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap';
-import { ChatContext } from '../Contexts/ChatContext';
+import { DashboardLayoutContext } from '../Contexts/DashboardLayoutContext';
 import './Styles/Sidebar.css';
-// import Contacts from './Contacts';
+import Contacts from './Contacts';
 import Conversations from './Conversations';
+
 export default class Sidebar extends Component {
-	static contextType = ChatContext;
+	static contextType = DashboardLayoutContext;
 
 	render() {
-		const { showChat } = this.context;
+		const { showChat, showContacts } = this.context;
 
 		return (
 			<Col
@@ -19,8 +20,7 @@ export default class Sidebar extends Component {
 						: 'Sidebar px-0 flex-column'
 				}
 			>
-				{/* <Contacts /> */}
-				<Conversations />
+				{showContacts ? <Contacts /> : <Conversations />}
 			</Col>
 		);
 	}
