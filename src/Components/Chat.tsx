@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import './Styles/Chat.css';
 import Message from './Message';
+import userDefaultImg from './Images/user.jpg';
+
 
 interface Props {}
 interface State {
@@ -50,7 +52,7 @@ export default class Chat extends Component<Props, State> {
 					<div className="d-inline">
 						<img
 							className="rounded-circle mb-4"
-							src="http://lorempixel.com/output/people-h-c-1141-1147-8.jpg"
+							src={userDefaultImg}
 							width="60"
 							height="60"
 							alt="username"
