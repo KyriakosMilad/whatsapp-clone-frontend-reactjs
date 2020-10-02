@@ -13,15 +13,19 @@ interface Props {
 export default class ChatCard extends Component<Props> {
 	static contextType = DashboardLayoutContext;
 
+	constructor(props: Props) {
+		super(props);
+	}
+	
+	changeChatId = (): void => {
+		const { changeChatId } = this.context;
+		changeChatId(this.props.id);
+	};
+
+
 	render() {
-		const {  changeChatId } = this.context;
 		return (
-			<a
-				href="/#"
-				className="chatCard--link"
-				onClick={changeChatId}
-				id={'conversationId--' + this.props.id}
-			>
+			<a href="/#" className="chatCard--link" onClick={this.changeChatId}>
 				<div className="chatCard p-2">
 					<img
 						src={this.props.image}

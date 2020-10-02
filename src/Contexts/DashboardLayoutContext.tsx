@@ -13,7 +13,7 @@ export const DashboardLayoutContext = createContext({
 	chatId: 0,
 	hideChat: () => {},
 	toogleSidebar: () => {},
-	changeChatId: (e: React.ChangeEvent<HTMLInputElement>) => {},
+	changeChatId: (newChatId: string) => {},
 });
 
 export class DashboardLayoutProvider extends Component<Props, State> {
@@ -26,8 +26,7 @@ export class DashboardLayoutProvider extends Component<Props, State> {
 		this.setState({ showChat: false });
 	};
 
-	changeChatId = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		const newChatId = e.currentTarget.id.split('conversationId--')[1];
+	changeChatId = (newChatId: string): void => {
 		this.setState({ chatId: Number(newChatId), showChat: true });
 	};
 
