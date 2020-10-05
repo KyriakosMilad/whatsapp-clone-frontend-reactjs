@@ -57,8 +57,6 @@ export default class Conversations extends Component<Props, State> {
 						id={1}
 						name="Kyriakos"
 						image={userDefaultImg}
-						lastMessage="It is a long established fact that a reader will..."
-						lastMessageDate="15:22"
 					/>
 				</div>
 				<div className="toogleSidebarButton">
