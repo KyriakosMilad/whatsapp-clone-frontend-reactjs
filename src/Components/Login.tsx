@@ -50,10 +50,17 @@ export default class Login extends Component<Props, State> {
 					});
 				})
 				.catch((err) => {
-					this.setState({
-						errMsg: err.response.data.error,
-						loading: false,
-					});
+					if (err.response) {
+						this.setState({
+							errMsg: err.response.data.error,
+							loading: false,
+						});
+					} else {
+						this.setState({
+							errMsg: 'Server error!',
+							loading: false,
+						});
+					}
 				});
 		});
 	};
