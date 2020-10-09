@@ -39,14 +39,14 @@ export default class Auth extends Component<Props, State> {
 							updateJWT(res.data.token);
 						})
 						.catch((err) => {
-							if (err.response) {
+							if (err.response && err.response.data.message) {
 								this.setState({
-									errMsg: err.response.data.error,
+									errMsg: err.response.data.message[0],
 									loading: false,
 								});
 							} else {
 								this.setState({
-									errMsg: 'Server error!',
+									errMsg: 'Unexpected server error occurred!',
 									loading: false,
 								});
 							}
