@@ -28,3 +28,7 @@
 .errMsg {
 	color: red;
 }
+
+.successMsg {
+	color: #37a745;
+}
