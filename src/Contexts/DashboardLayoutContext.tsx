@@ -4,13 +4,13 @@ interface Props {}
 interface State {
 	showChat: boolean;
 	showContacts: boolean;
-	chatId: number;
+	chatId: string;
 }
 
 export const DashboardLayoutContext = createContext({
 	showChat: false,
 	showContacts: false,
-	chatId: 0,
+	chatId: '',
 	hideChat: () => {},
 	toogleSidebar: () => {},
 	changeChatId: (newChatId: string) => {},
@@ -19,7 +19,7 @@ export const DashboardLayoutContext = createContext({
 export class DashboardLayoutProvider extends Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
-		this.state = { showChat: false, showContacts: false, chatId: 0 };
+		this.state = { showChat: false, showContacts: false, chatId: '' };
 	}
 
 	hideChat = (): void => {
@@ -27,7 +27,7 @@ export class DashboardLayoutProvider extends Component<Props, State> {
 	};
 
 	changeChatId = (newChatId: string): void => {
-		this.setState({ chatId: Number(newChatId), showChat: true });
+		this.setState({ chatId: String(newChatId), showChat: true });
 	};
 
 	toogleSidebar = (): void => {

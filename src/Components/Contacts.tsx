@@ -2,7 +2,7 @@ import { faComments } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, Spinner } from 'react-bootstrap';
 import { DashboardLayoutContext } from '../Contexts/DashboardLayoutContext';
 import ChatCard from './ChatCard';
 import userDefaultImg from './Images/user.jpg';
@@ -18,8 +18,14 @@ interface State {
 	newContactPhoneNumber?: string;
 	newContactName?: string;
 	loading?: boolean;
+	loadingSpinner?: boolean;
 	errMsg?: string;
 	successMsg?: string;
+	contacts?: Array<{
+		_id: string;
+		name: string;
+		conversationId: string;
+	}>;
 }
 
 export default class Conversations extends Component<Props, State> {
@@ -35,7 +41,13 @@ export default class Conversations extends Component<Props, State> {
 			loading: false,
 			errMsg: '',
 			successMsg: '',
+			contacts: [],
+			loadingSpinner: false,
 		};
+	}
+
+	componentDidMount() {
+		this.getContacts();
 	}
 
 	handleCloseNewContactModal = (): void => {
@@ -106,6 +118,29 @@ export default class Conversations extends Component<Props, State> {
 		});
 	};
 
+	getContacts = (): void => {
+		this.setState({ loadingSpinner: true }, () => {
+			axios
+				.get(config.hostname + '/api/auth/contacts', {
+					headers: {
+						Authorization:
+							'bearer ' + localStorage.getItem(LOCAL_STORAGE_JWT_KEY),
+					},
+				})
+				.then((res) => {
+					this.setState({
+						contacts: res.data,
+						loadingSpinner: false,
+					});
+				})
+				.catch((err) => {
+					this.setState({
+						loadingSpinner: false,
+					});
+				});
+		});
+	};
+
 	render() {
 		const { toogleSidebar } = this.context;
 
@@ -121,7 +156,25 @@ export default class Conversations extends Component<Props, State> {
 					></Form.Control>
 				</Form.Group>
 				<div className="sidebarMain overflow-auto flex-grow-1">
-					<ChatCard id={1} name="Kyriakos" image={userDefaultImg} />
+					{this.state.contacts?.map((value, index) => {
+						return (
+							<ChatCard
+								key={value._id}
+								id={value.conversationId}
+								name={value.name}
+								image={userDefaultImg}
+							/>
+						);
+					})}
+					<></>
+					{this.state.loadingSpinner ? (
+						<Spinner
+							animation="grow"
+							variant="success"
+							className="mt-3"
+							style={{ marginLeft: '45%' }}
+						/>
+					) : null}
 				</div>
 				<div className="toogleSidebarButton">
 					<Button variant="primary" onClick={toogleSidebar}>

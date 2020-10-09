@@ -52,7 +52,7 @@ export default class Conversations extends Component<Props, State> {
 				</Form.Group>
 				<div className="sidebarMain overflow-auto flex-grow-1">
 					<ChatCard
-						id={1}
+						id={'1'}
 						name="Kyriakos"
 						image={userDefaultImg}
 						lastMessage="It is a long established fact that a reader will..."

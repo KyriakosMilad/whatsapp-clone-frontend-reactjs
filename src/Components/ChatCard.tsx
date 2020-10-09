@@ -3,7 +3,7 @@ import { DashboardLayoutContext } from '../Contexts/DashboardLayoutContext';
 import './Styles/ChatCard.css';
 
 interface Props {
-	id: number;
+	id: string;
 	name: string;
 	image: string;
 	lastMessage?: string;
