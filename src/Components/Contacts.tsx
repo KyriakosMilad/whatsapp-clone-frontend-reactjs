@@ -99,6 +99,7 @@ export default class Conversations extends Component<Props, State> {
 						newContactPhoneNumber: '',
 						loading: false,
 					});
+					this.getContacts();
 				})
 				.catch((err) => {
 					if (err.response && err.response.data.message) {
