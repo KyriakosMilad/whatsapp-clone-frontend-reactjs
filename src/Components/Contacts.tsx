@@ -26,6 +26,7 @@ interface State {
 		name: string;
 		conversationId: string;
 	}>;
+	searchContactsByName?: string;
 }
 
 export default class Conversations extends Component<Props, State> {
@@ -43,6 +44,7 @@ export default class Conversations extends Component<Props, State> {
 			successMsg: '',
 			contacts: [],
 			loadingSpinner: false,
+			searchContactsByName: '',
 		};
 	}
 
@@ -120,9 +122,12 @@ export default class Conversations extends Component<Props, State> {
 	};
 
 	getContacts = (): void => {
-		this.setState({ loadingSpinner: true }, () => {
+		this.setState({ loadingSpinner: true, contacts: [] }, () => {
 			axios
 				.get(config.hostname + '/api/auth/contacts', {
+					params: {
+						name: this.state.searchContactsByName,
+					},
 					headers: {
 						Authorization:
 							'bearer ' + localStorage.getItem(LOCAL_STORAGE_JWT_KEY),
@@ -142,6 +147,12 @@ export default class Conversations extends Component<Props, State> {
 		});
 	};
 
+	searchContacts = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+		this.setState({ searchContactsByName: e.currentTarget.value }, () => {
+			this.getContacts();
+		});
+	};
+
 	render() {
 		const { toogleSidebar } = this.context;
 
@@ -152,8 +163,9 @@ export default class Conversations extends Component<Props, State> {
 					<Form.Control
 						className="mt-3"
 						type="text"
-						name="search"
+						name="searchContactsByName"
 						placeholder="search contacts..."
+						onKeyUp={this.searchContacts}
 					></Form.Control>
 				</Form.Group>
 				<div className="sidebarMain overflow-auto flex-grow-1">
