@@ -147,7 +147,7 @@ export default class Conversations extends Component<Props, State> {
 		});
 	};
 
-	searchContacts = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+	searchContacts = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		this.setState({ searchContactsByName: e.currentTarget.value }, () => {
 			this.getContacts();
 		});
@@ -165,7 +165,7 @@ export default class Conversations extends Component<Props, State> {
 						type="text"
 						name="searchContactsByName"
 						placeholder="search contacts..."
-						onKeyUp={this.searchContacts}
+						onChange={this.searchContacts}
 					></Form.Control>
 				</Form.Group>
 				<div className="sidebarMain overflow-auto flex-grow-1">
