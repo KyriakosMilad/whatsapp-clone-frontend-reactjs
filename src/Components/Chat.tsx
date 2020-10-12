@@ -18,7 +18,7 @@ export default class Chat extends Component<Props, State> {
 	static contextType = DashboardLayoutContext;
 
 	constructor(props: Props, context: typeof DashboardLayoutContext) {
-		super(props, context);
+		super(context);
 
 		this.state = {
 			newMessage: '',
