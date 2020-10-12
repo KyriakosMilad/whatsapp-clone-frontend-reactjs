@@ -15,8 +15,8 @@ export default class App extends Component {
 
 	checkLocalStorage = (): void => {
 		const { updateJWT } = this.context;
-		let localStorageJWT: string | null = localStorage.getItem(PREFIX);
-		if (localStorageJWT !== null && localStorageJWT !== undefined)
+		const localStorageJWT: string | null = localStorage.getItem(PREFIX);
+		if (localStorageJWT !== null)
 			updateJWT(localStorageJWT);
 	};
 
