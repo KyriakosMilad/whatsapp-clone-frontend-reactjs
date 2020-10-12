@@ -169,7 +169,7 @@ export default class Conversations extends Component<Props, State> {
 					></Form.Control>
 				</Form.Group>
 				<div className="sidebarMain overflow-auto flex-grow-1">
-					{this.state.contacts?.map((value, index) => {
+					{this.state.contacts!.map((value) => {
 						return (
 							<ChatCard
 								key={value._id}
