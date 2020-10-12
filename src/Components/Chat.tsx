@@ -10,16 +10,20 @@ import userDefaultImg from './Images/user.jpg';
 interface Props {}
 interface State {
 	newMessage: string;
+	chatId: string;
+	status: string;
 }
 
 export default class Chat extends Component<Props, State> {
 	static contextType = DashboardLayoutContext;
 
-	constructor(props: Props) {
-		super(props);
+	constructor(props: Props, context: typeof DashboardLayoutContext) {
+		super(props, context);
 
 		this.state = {
 			newMessage: '',
+			chatId: this.context.chatName,
+			status: '',
 		};
 	}
 
@@ -33,7 +37,7 @@ export default class Chat extends Component<Props, State> {
 	};
 
 	render() {
-		const { showChat, hideChat, chatId } = this.context;
+		const { showChat, hideChat, chatId, chatName, chatImg } = this.context;
 
 		return (
 			<Col
@@ -60,7 +64,7 @@ export default class Chat extends Component<Props, State> {
 								/>
 							</div>
 							<div className="d-inline-block ml-2">
-								<span className="name">Kyriakos Milad</span>
+								<span className="name">{chatName}</span>
 								<br />
 								<span>online</span>
 							</div>
