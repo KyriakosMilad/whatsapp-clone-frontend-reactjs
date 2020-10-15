@@ -22,9 +22,15 @@ export default class Chat extends Component<Props, State> {
 
 		this.state = {
 			newMessage: '',
-			chatId: this.context.chatName,
+			chatId: this.context.chatId,
 			status: '',
 		};
+	}
+
+	componentDidUpdate(prevProps: Props, prevState: State) {
+		if (this.state.chatId !== prevState.chatId) {
+			console.log('chat changed!!');
+		}
 	}
 
 	handleChangeNewMessage = (e: React.ChangeEvent<HTMLInputElement>): void => {
