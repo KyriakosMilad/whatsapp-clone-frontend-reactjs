@@ -40,6 +40,10 @@ export default class Chat extends Component<Props, State> {
 		};
 	}
 
+	componentDidMount() {
+		this.getMessages();
+	}
+
 	componentDidUpdate(prevProps: Props, prevState: State) {
 		if (this.state.chatId !== prevState.chatId) {
 			console.log('chat changed!!');
