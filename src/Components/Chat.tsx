@@ -6,12 +6,23 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import './Styles/Chat.css';
 import Message from './Message';
 import userDefaultImg from './Images/user.jpg';
+import axios from 'axios';
+import config from '../keys.config';
+
+const LOCAL_STORAGE_JWT_KEY: string = config.jwtPrefix;
 
 interface Props {}
 interface State {
-	newMessage: string;
-	chatId: string;
-	status: string;
+	newMessage?: string;
+	chatId?: string;
+	status?: string;
+	messages?: Array<{
+		_id: string;
+		message: string;
+		conversationId: string;
+		userId: string;
+	}>;
+	loadingSpinner?: boolean;
 }
 
 export default class Chat extends Component<Props, State> {
@@ -24,6 +35,8 @@ export default class Chat extends Component<Props, State> {
 			newMessage: '',
 			chatId: this.context.chatId,
 			status: '',
+			messages: [],
+			loadingSpinner: false,
 		};
 	}
 
@@ -40,6 +53,32 @@ export default class Chat extends Component<Props, State> {
 	scrollToLastMessage = (): void => {
 		const messagesDiv = document.getElementById('messages')!;
 		messagesDiv.scrollTop = messagesDiv.scrollHeight;
+	};
+
+	getMessages = (): void => {
+		this.setState({ loadingSpinner: true }, () => {
+			axios
+				.get(config.hostname + '/api/auth/messages', {
+					params: {
+						chatId: this.state.chatId,
+					},
+					headers: {
+						Authorization:
+							'bearer ' + localStorage.getItem(LOCAL_STORAGE_JWT_KEY),
+					},
+				})
+				.then((res) => {
+					this.setState({
+						messages: res.data,
+						loadingSpinner: false,
+					});
+				})
+				.catch((err) => {
+					this.setState({
+						loadingSpinner: false,
+					});
+				});
+		});
 	};
 
 	render() {
@@ -79,8 +118,9 @@ export default class Chat extends Component<Props, State> {
 							className="Messages overflow-auto flex-grow-1 p-3"
 							id="messages"
 						>
-							<Message message="sent message" messageSent={true} />
-							<Message message="recived message" messageSent={false} />
+							{this.state.messages!.map((value) => {
+								return <Message message={value.message} messageSent={true} />;
+							})}
 						</div>
 						<div className="typeMessage">
 							<Form>
@@ -93,7 +133,13 @@ export default class Chat extends Component<Props, State> {
 										/>
 									</Col>
 									<Col xs="2" className="">
-										<Button type="submit" className="mb-2">
+										<Button
+											type="submit"
+											className="mb-2"
+											disabled={
+												this.state.newMessage!.length > 0 ? false : true
+											}
+										>
 											Send
 										</Button>
 									</Col>
