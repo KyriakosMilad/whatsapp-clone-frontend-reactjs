@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Form, Button } from 'react-bootstrap';
+import { Col, Form, Button, Spinner } from 'react-bootstrap';
 import { DashboardLayoutContext } from '../Contexts/DashboardLayoutContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -122,6 +122,16 @@ export default class Chat extends Component<Props, State> {
 							className="Messages overflow-auto flex-grow-1 p-3"
 							id="messages"
 						>
+							{this.state.loadingSpinner ? (
+								<Spinner
+									animation="grow"
+									variant="success"
+									className="mt-3"
+									style={{
+										marginLeft: '45%',
+									}}
+								/>
+							) : null}
 							{this.state.messages!.map((value) => {
 								return <Message message={value.message} messageSent={true} />;
 							})}
