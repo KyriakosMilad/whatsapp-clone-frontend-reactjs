@@ -14,14 +14,14 @@ export default class App extends Component {
 	}
 
 	checkLocalStorage = (): void => {
-		const { updateJWT } = this.context;
+		let { updateJWT } = this.context;
 		const localStorageJWT: string | null = localStorage.getItem(PREFIX);
 		if (localStorageJWT !== null)
 			updateJWT(localStorageJWT);
 	};
 
 	render() {
-		const { jwt } = this.context;
+		let { jwt } = this.context;
 		return jwt ? <Dashboard /> : <Login />;
 	}
 }

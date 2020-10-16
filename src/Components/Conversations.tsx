@@ -38,7 +38,7 @@ export default class Conversations extends Component<Props, State> {
 	};
 
 	render() {
-		const { toogleSidebar } = this.context;
+		let { toogleSidebar } = this.context;
 
 		return (
 			<>

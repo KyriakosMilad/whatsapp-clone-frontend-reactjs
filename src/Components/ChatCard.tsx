@@ -14,7 +14,7 @@ export default class ChatCard extends Component<Props> {
 	static contextType = DashboardLayoutContext;
 
 	changeChatInfo = (): void => {
-		const { changeChatInfo } = this.context;
+		let { changeChatInfo } = this.context;
 		changeChatInfo(this.props.id, this.props.image, this.props.name);
 	};
 
