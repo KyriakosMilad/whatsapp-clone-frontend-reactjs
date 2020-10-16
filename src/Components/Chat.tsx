@@ -28,12 +28,12 @@ interface State {
 export default class Chat extends Component<Props, State> {
 	static contextType = DashboardLayoutContext;
 
-	constructor(props: Props, context: typeof DashboardLayoutContext) {
-		super(props, context);
+	constructor(props: Props) {
+		super(props);
 
 		this.state = {
 			newMessage: '',
-			chatId: this.context.chatId,
+			chatId: '',
 			status: '',
 			messages: [],
 			loadingSpinner: false,
@@ -41,12 +41,20 @@ export default class Chat extends Component<Props, State> {
 	}
 
 	componentDidMount() {
-		this.getMessages();
+		let { chatId } = this.context;
+
+		this.setState({ chatId: chatId }, () => {
+			this.getMessages();
+		});
 	}
 
 	componentDidUpdate(prevProps: Props, prevState: State) {
-		if (this.state.chatId !== prevState.chatId) {
-			this.getMessages();
+		let { chatId } = this.context;
+
+		if (chatId !== prevState.chatId) {
+			this.setState({ chatId: chatId }, () => {
+				this.getMessages();
+			});
 		}
 	}
 
@@ -86,7 +94,7 @@ export default class Chat extends Component<Props, State> {
 	};
 
 	render() {
-		const { showChat, hideChat, chatId, chatName, chatImg } = this.context;
+		let { showChat, hideChat, chatId, chatName, chatImg } = this.context;
 
 		return (
 			<Col
