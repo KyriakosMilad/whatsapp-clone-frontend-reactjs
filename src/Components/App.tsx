@@ -4,7 +4,8 @@ import Login from './Login';
 import { AuthContext } from '../Contexts/AuthContext';
 import config from '../keys.config';
 
-const PREFIX: string = config.jwtPrefix;
+const JWT_PREFIX: string = config.jwtPrefix;
+const AUTH_ID_PREFIX: string = config.authIdPrefix;
 
 export default class App extends Component {
 	static contextType = AuthContext;
@@ -15,9 +16,10 @@ export default class App extends Component {
 
 	checkLocalStorage = (): void => {
 		let { updateJWT } = this.context;
-		const localStorageJWT: string | null = localStorage.getItem(PREFIX);
-		if (localStorageJWT !== null)
-			updateJWT(localStorageJWT);
+		const localStorageJWT: string | null = localStorage.getItem(JWT_PREFIX);
+		const localStorageAuthId: string | null = localStorage.getItem(AUTH_ID_PREFIX);
+		if (localStorageJWT !== null && localStorageAuthId !== null)
+			updateJWT(localStorageJWT, localStorageAuthId);
 	};
 
 	render() {

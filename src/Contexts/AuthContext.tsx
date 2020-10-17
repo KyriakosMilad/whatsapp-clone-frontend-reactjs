@@ -5,19 +5,22 @@ import config from '../keys.config';
 interface Props {}
 interface State {
 	jwt: string;
+	authId: string;
 }
 
-const PREFIX: string = config.jwtPrefix;
+const JWT_PREFIX: string = config.jwtPrefix;
+const AUTH_ID_PREFIX: string = config.authIdPrefix;
 
 export const AuthContext = createContext({
 	jwt: '',
-	updateJWT: (jwt: string) => {},
+	authId: '',
+	updateJWT: (jwt: string, authId: string) => {},
 });
 
 export class AuthProvider extends Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
-		this.state = { jwt: '' };
+		this.state = { jwt: '', authId: '' };
 	}
 
 	checkJWT = (jwt: string): Promise<boolean> => {
@@ -36,10 +39,11 @@ export class AuthProvider extends Component<Props, State> {
 			});
 	};
 
-	updateJWT = (jwt: string): void => {
+	updateJWT = (jwt: string, authId: string): void => {
 		if (this.checkJWT(jwt)) {
-			localStorage.setItem(PREFIX, jwt);
-			this.setState({ jwt: jwt });
+			localStorage.setItem(JWT_PREFIX, jwt);
+			localStorage.setItem(AUTH_ID_PREFIX, authId);
+			this.setState({ jwt: jwt, authId: authId });
 		}
 	};
 

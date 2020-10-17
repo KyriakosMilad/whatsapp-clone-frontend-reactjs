@@ -3,4 +3,5 @@
 export default {
 	hostname: '', // application backend hostname required for api requests (string)
 	jwtPrefix: '', // used as a key to store jwt in local storage (string)
+	authIdPrefix: '', // used as a key to store authId in local storage (string)
 };

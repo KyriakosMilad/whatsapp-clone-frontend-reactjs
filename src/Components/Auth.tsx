@@ -36,7 +36,7 @@ export default class Auth extends Component<Props, State> {
 						})
 						.then((res) => {
 							this.setState({ errMsg: '', loading: false });
-							updateJWT(res.data.token);
+							updateJWT(res.data.token, res.data.authId);
 						})
 						.catch((err) => {
 							if (err.response && err.response.data.message) {
