@@ -172,6 +172,7 @@ export default class Chat extends Component<Props, State> {
 							{this.state.messages!.map((value) => {
 								return (
 									<Message
+										key={value._id}
 										message={value.message}
 										messageSent={
 											value.userId ===
