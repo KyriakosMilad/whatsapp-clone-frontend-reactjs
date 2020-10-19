@@ -93,6 +93,32 @@ export default class Chat extends Component<Props, State> {
 		});
 	};
 
+	sendMessage = (evt: React.FormEvent<HTMLFormElement>): void => {
+		evt.preventDefault();
+		axios
+			.post(
+				config.hostname + '/api/auth/messages/create',
+				{
+					message: this.state.newMessage,
+					chatId: this.state.chatId,
+				},
+				{
+					headers: {
+						Authorization:
+							'bearar ' + localStorage.getItem(LOCAL_STORAGE_JWT_KEY),
+					},
+				}
+			)
+			.then((res) => {
+				this.setState({
+					newMessage: '',
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	render() {
 		let { showChat, hideChat, chatId, chatName, chatImg } = this.context;
 
@@ -145,13 +171,14 @@ export default class Chat extends Component<Props, State> {
 							})}
 						</div>
 						<div className="typeMessage">
-							<Form>
+							<Form onSubmit={this.sendMessage}>
 								<Form.Row className="align-items-center mt-3">
 									<Col xs="8" className="ml-3">
 										<Form.Control
 											className="mb-2"
 											placeholder="type your message..."
 											onChange={this.handleChangeNewMessage}
+											value={this.state.newMessage}
 										/>
 									</Col>
 									<Col xs="2" className="">
