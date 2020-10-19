@@ -52,7 +52,7 @@ export default class Chat extends Component<Props, State> {
 		let { chatId } = this.context;
 
 		if (chatId !== prevState.chatId) {
-			this.setState({ chatId: chatId }, () => {
+			this.setState({ chatId: chatId, messages: [] }, () => {
 				this.getMessages();
 			});
 		}
