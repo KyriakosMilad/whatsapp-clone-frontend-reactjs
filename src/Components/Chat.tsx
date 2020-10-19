@@ -10,6 +10,7 @@ import axios from 'axios';
 import config from '../keys.config';
 
 const LOCAL_STORAGE_JWT_KEY: string = config.jwtPrefix;
+const LOCAL_STORAGE_AUTH_ID: string = config.authIdPrefix;
 
 interface Props {}
 interface State {
@@ -167,7 +168,7 @@ export default class Chat extends Component<Props, State> {
 								/>
 							) : null}
 							{this.state.messages!.map((value) => {
-								return <Message message={value.message} messageSent={true} />;
+								return <Message message={value.message} messageSent={value.userId === localStorage.getItem(LOCAL_STORAGE_AUTH_ID)} />;
 							})}
 						</div>
 						<div className="typeMessage">
