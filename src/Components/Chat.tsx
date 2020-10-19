@@ -85,6 +85,7 @@ export default class Chat extends Component<Props, State> {
 						messages: res.data,
 						loadingSpinner: false,
 					});
+					this.scrollToLastMessage();
 				})
 				.catch((err) => {
 					this.setState({
@@ -114,6 +115,7 @@ export default class Chat extends Component<Props, State> {
 				this.setState({
 					newMessage: '',
 				});
+				this.scrollToLastMessage();
 			})
 			.catch((err) => {
 				console.log(err);
@@ -168,7 +170,15 @@ export default class Chat extends Component<Props, State> {
 								/>
 							) : null}
 							{this.state.messages!.map((value) => {
-								return <Message message={value.message} messageSent={value.userId === localStorage.getItem(LOCAL_STORAGE_AUTH_ID)} />;
+								return (
+									<Message
+										message={value.message}
+										messageSent={
+											value.userId ===
+											localStorage.getItem(LOCAL_STORAGE_AUTH_ID)
+										}
+									/>
+								);
 							})}
 						</div>
 						<div className="typeMessage">
