@@ -114,6 +114,7 @@ export default class Chat extends Component<Props, State> {
 			.then((res) => {
 				this.setState({
 					newMessage: '',
+					messages: this.state.messages!.concat(res.data.message),
 				});
 				this.scrollToLastMessage();
 			})
