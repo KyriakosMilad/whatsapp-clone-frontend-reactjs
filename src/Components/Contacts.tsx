@@ -166,7 +166,7 @@ export default class Conversations extends Component<Props, State> {
 						name="searchContactsByName"
 						placeholder="search contacts..."
 						onChange={this.searchContacts}
-					></Form.Control>
+					/>
 				</Form.Group>
 				<div className="sidebarMain overflow-auto flex-grow-1">
 					{this.state.contacts!.map((value) => {
@@ -230,7 +230,7 @@ export default class Conversations extends Component<Props, State> {
 									name="newContactName"
 									onChange={this.handleChangeNewContactInfo}
 									value={this.state.newContactName}
-								></Form.Control>
+								/>
 								<Form.Label className="mt-3">
 									Enter new contact phone number:
 								</Form.Label>
@@ -239,7 +239,7 @@ export default class Conversations extends Component<Props, State> {
 									name="newContactPhoneNumber"
 									onChange={this.handleChangeNewContactInfo}
 									value={this.state.newContactPhoneNumber}
-								></Form.Control>
+								/>
 							</Form.Group>
 						</Modal.Body>
 						<Modal.Footer>

@@ -48,7 +48,7 @@ export default class Conversations extends Component<Props, State> {
 						type="text"
 						name="search"
 						placeholder="search conversations..."
-					></Form.Control>
+					/>
 				</Form.Group>
 				<div className="sidebarMain overflow-auto flex-grow-1">
 					<ChatCard
@@ -88,7 +88,7 @@ export default class Conversations extends Component<Props, State> {
 									type="text"
 									name="newGroupName"
 									onChange={this.handleChangeNewGroupName}
-								></Form.Control>
+								/>
 							</Form.Group>
 						</Form>
 					</Modal.Body>
