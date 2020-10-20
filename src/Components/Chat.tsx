@@ -69,30 +69,32 @@ export default class Chat extends Component<Props, State> {
 	};
 
 	getMessages = (): void => {
-		this.setState({ loadingSpinner: true }, () => {
-			axios
-				.get(config.hostname + '/api/auth/messages', {
-					params: {
-						chatId: this.state.chatId,
-					},
-					headers: {
-						Authorization:
-							'bearer ' + localStorage.getItem(LOCAL_STORAGE_JWT_KEY),
-					},
-				})
-				.then((res) => {
-					this.setState({
-						messages: res.data,
-						loadingSpinner: false,
+		if (this.state.chatId) {
+			this.setState({ loadingSpinner: true }, () => {
+				axios
+					.get(config.hostname + '/api/auth/messages', {
+						params: {
+							chatId: this.state.chatId,
+						},
+						headers: {
+							Authorization:
+								'bearer ' + localStorage.getItem(LOCAL_STORAGE_JWT_KEY),
+						},
+					})
+					.then((res) => {
+						this.setState({
+							messages: res.data,
+							loadingSpinner: false,
+						});
+						this.scrollToLastMessage();
+					})
+					.catch((err) => {
+						this.setState({
+							loadingSpinner: false,
+						});
 					});
-					this.scrollToLastMessage();
-				})
-				.catch((err) => {
-					this.setState({
-						loadingSpinner: false,
-					});
-				});
-		});
+			});
+		}
 	};
 
 	sendMessage = (evt: React.FormEvent<HTMLFormElement>): void => {
