@@ -154,7 +154,7 @@ export default class Conversations extends Component<Props, State> {
 	};
 
 	render() {
-		let { toogleSidebar } = this.context;
+		let { toggleSidebar } = this.context;
 
 		return (
 			<>
@@ -189,8 +189,8 @@ export default class Conversations extends Component<Props, State> {
 						/>
 					) : null}
 				</div>
-				<div className="toogleSidebarButton">
-					<Button variant="primary" onClick={toogleSidebar}>
+				<div className="toggleSidebarButton">
+					<Button variant="primary" onClick={toggleSidebar}>
 						<FontAwesomeIcon icon={faComments} />
 					</Button>
 				</div>

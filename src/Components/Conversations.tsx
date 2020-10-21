@@ -38,7 +38,7 @@ export default class Conversations extends Component<Props, State> {
 	};
 
 	render() {
-		let { toogleSidebar } = this.context;
+		let { toggleSidebar } = this.context;
 
 		return (
 			<>
@@ -59,8 +59,8 @@ export default class Conversations extends Component<Props, State> {
 						lastMessageDate="15:22"
 					/>
 				</div>
-				<div className="toogleSidebarButton">
-					<Button variant="success" onClick={toogleSidebar}>
+				<div className="toggleSidebarButton">
+					<Button variant="success" onClick={toggleSidebar}>
 						<FontAwesomeIcon icon={faAddressBook} />
 					</Button>
 				</div>

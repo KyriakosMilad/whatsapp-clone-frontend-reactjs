@@ -12,7 +12,7 @@ export default class Message extends Component<Props> {
 				className={
 					this.props.messageSent
 						? 'Message d-flex justify-content-end Message sentMessage'
-						: 'Message d-flex justify-content-start Message recivedMessage'
+						: 'Message d-flex justify-content-start Message receivedMessage'
 				}
 			>
 				<p className="p-2" dir="auto">{this.props.message}</p>

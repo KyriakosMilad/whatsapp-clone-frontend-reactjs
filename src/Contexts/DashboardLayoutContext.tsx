@@ -16,7 +16,7 @@ export const DashboardLayoutContext = createContext({
 	chatName: '',
 	chatImg: '',
 	hideChat: () => {},
-	toogleSidebar: () => {},
+	toggleSidebar: () => {},
 	changeChatInfo: (
 		newChatId: string,
 		newChatImg: string,
@@ -53,7 +53,7 @@ export class DashboardLayoutProvider extends Component<Props, State> {
 		});
 	};
 
-	toogleSidebar = (): void => {
+	toggleSidebar = (): void => {
 		this.setState({ showContacts: !this.state.showContacts });
 	};
 
@@ -63,7 +63,7 @@ export class DashboardLayoutProvider extends Component<Props, State> {
 				value={{
 					...this.state,
 					hideChat: this.hideChat,
-					toogleSidebar: this.toogleSidebar,
+					toggleSidebar: this.toggleSidebar,
 					changeChatInfo: this.changeChatInfo,
 				}}
 			>

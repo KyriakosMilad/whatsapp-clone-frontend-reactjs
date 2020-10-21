@@ -109,7 +109,7 @@ export default class Chat extends Component<Props, State> {
 				{
 					headers: {
 						Authorization:
-							'bearar ' + localStorage.getItem(LOCAL_STORAGE_JWT_KEY),
+							'bearer ' + localStorage.getItem(LOCAL_STORAGE_JWT_KEY),
 					},
 				}
 			)
