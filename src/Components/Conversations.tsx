@@ -1,16 +1,27 @@
 import { faAddressBook } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import React, { Component } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, Spinner } from 'react-bootstrap';
 import { DashboardLayoutContext } from '../Contexts/DashboardLayoutContext';
 import ChatCard from './ChatCard';
 import userDefaultImg from './Images/user.jpg';
+import config from '../keys.config';
+
+const LOCAL_STORAGE_JWT_KEY: string = config.jwtPrefix;
 
 interface Props {}
 
 interface State {
 	showNewGroupModal: boolean;
 	newGroupName: string;
+	conversations: Array<{
+		_id: string;
+		name: string;
+		lastMessage: string;
+		lastMessageDate: string;
+	}>;
+	loadingSpinner: boolean;
 }
 
 export default class Conversations extends Component<Props, State> {
@@ -22,7 +33,13 @@ export default class Conversations extends Component<Props, State> {
 		this.state = {
 			showNewGroupModal: false,
 			newGroupName: '',
+			conversations: [],
+			loadingSpinner: false,
 		};
+	}
+
+	componentDidMount() {
+		this.getConversations();
 	}
 
 	handleCloseNewGroupModal = (): void => {
@@ -35,6 +52,29 @@ export default class Conversations extends Component<Props, State> {
 
 	handleChangeNewGroupName = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		this.setState({ newGroupName: e.target.value });
+	};
+
+	getConversations = (): void => {
+		this.setState({ loadingSpinner: true, conversations: [] }, () => {
+			axios
+				.get(config.hostname + '/api/auth/conversations', {
+					headers: {
+						Authorization:
+							'bearer ' + localStorage.getItem(LOCAL_STORAGE_JWT_KEY),
+					},
+				})
+				.then((res) => {
+					this.setState({
+						conversations: res.data,
+						loadingSpinner: false,
+					});
+				})
+				.catch((err) => {
+					this.setState({
+						loadingSpinner: false,
+					});
+				});
+		});
 	};
 
 	render() {
@@ -51,13 +91,27 @@ export default class Conversations extends Component<Props, State> {
 					/>
 				</Form.Group>
 				<div className="sidebarMain overflow-auto flex-grow-1">
-					<ChatCard
-						id={'1'}
-						name="Kyriakos"
-						image={userDefaultImg}
-						lastMessage="It is a long established fact that a reader will..."
-						lastMessageDate="15:22"
-					/>
+					{this.state.conversations!.map((value) => {
+						return (
+							<ChatCard
+								key={value._id}
+								id={value._id}
+								name={value.name}
+								image={userDefaultImg}
+								lastMessage={value.lastMessage}
+								lastMessageDate={value.lastMessageDate}
+							/>
+						);
+					})}
+
+					{this.state.loadingSpinner ? (
+						<Spinner
+							animation="grow"
+							variant="success"
+							className="mt-3"
+							style={{ marginLeft: '45%' }}
+						/>
+					) : null}
 				</div>
 				<div className="toggleSidebarButton">
 					<Button variant="success" onClick={toggleSidebar}>
