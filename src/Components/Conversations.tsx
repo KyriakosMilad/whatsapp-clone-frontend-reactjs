@@ -22,6 +22,7 @@ interface State {
 		lastMessageDate: string;
 	}>;
 	loadingSpinner: boolean;
+	searchConversationsByName?: string;
 }
 
 export default class Conversations extends Component<Props, State> {
@@ -35,6 +36,7 @@ export default class Conversations extends Component<Props, State> {
 			newGroupName: '',
 			conversations: [],
 			loadingSpinner: false,
+			searchConversationsByName: '',
 		};
 	}
 
@@ -58,6 +60,9 @@ export default class Conversations extends Component<Props, State> {
 		this.setState({ loadingSpinner: true, conversations: [] }, () => {
 			axios
 				.get(config.hostname + '/api/auth/conversations', {
+					params: {
+						name: this.state.searchConversationsByName,
+					},
 					headers: {
 						Authorization:
 							'bearer ' + localStorage.getItem(LOCAL_STORAGE_JWT_KEY),
@@ -77,6 +82,12 @@ export default class Conversations extends Component<Props, State> {
 		});
 	};
 
+	searchConversations = (e: React.ChangeEvent<HTMLInputElement>): void => {
+		this.setState({ searchConversationsByName: e.currentTarget.value }, () => {
+			this.getConversations();
+		});
+	};
+
 	render() {
 		let { toggleSidebar } = this.context;
 
@@ -88,6 +99,7 @@ export default class Conversations extends Component<Props, State> {
 						type="text"
 						name="search"
 						placeholder="search conversations..."
+						onChange={this.searchConversations}
 					/>
 				</Form.Group>
 				<div className="sidebarMain overflow-auto flex-grow-1">
