@@ -42,7 +42,7 @@ export default class Chat extends Component<Props, State> {
 	}
 
 	componentDidMount() {
-		let { chatId } = this.context;
+		const { chatId } = this.context;
 
 		this.setState({ chatId: chatId }, () => {
 			this.getMessages();
@@ -50,7 +50,7 @@ export default class Chat extends Component<Props, State> {
 	}
 
 	componentDidUpdate(prevProps: Props, prevState: State) {
-		let { chatId } = this.context;
+		const { chatId } = this.context;
 
 		if (chatId !== prevState.chatId) {
 			this.setState({ chatId: chatId, messages: [] }, () => {
@@ -126,7 +126,7 @@ export default class Chat extends Component<Props, State> {
 	};
 
 	render() {
-		let { showChat, hideChat, chatId, chatName, chatImg } = this.context;
+		const { showChat, hideChat, chatId, chatName, chatImg } = this.context;
 
 		return (
 			<Col

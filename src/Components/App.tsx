@@ -15,7 +15,7 @@ export default class App extends Component {
 	}
 
 	checkLocalStorage = (): void => {
-		let { updateJWT } = this.context;
+		const { updateJWT } = this.context;
 		const localStorageJWT: string | null = localStorage.getItem(JWT_PREFIX);
 		const localStorageAuthId: string | null = localStorage.getItem(AUTH_ID_PREFIX);
 		if (localStorageJWT !== null && localStorageAuthId !== null)
@@ -23,7 +23,7 @@ export default class App extends Component {
 	};
 
 	render() {
-		let { jwt } = this.context;
+		const { jwt } = this.context;
 		return jwt ? <Dashboard /> : <Login />;
 	}
 }

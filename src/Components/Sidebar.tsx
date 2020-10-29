@@ -9,7 +9,7 @@ export default class Sidebar extends Component {
 	static contextType = DashboardLayoutContext;
 
 	render() {
-		let { showChat, showContacts } = this.context;
+		const { showChat, showContacts } = this.context;
 
 		return (
 			<Col

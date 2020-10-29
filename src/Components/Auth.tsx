@@ -25,7 +25,7 @@ export default class Auth extends Component<Props, State> {
 	}
 
 	handleAuthCodeChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-		let { updateJWT } = this.context;
+		const { updateJWT } = this.context;
 		this.setState({ authCode: Number(evt.target.value) }, () => {
 			if (this.state.authCode?.toString().length === 6) {
 				this.setState({ loading: true }, () => {

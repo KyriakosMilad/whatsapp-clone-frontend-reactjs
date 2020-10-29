@@ -89,7 +89,7 @@ export default class Conversations extends Component<Props, State> {
 	};
 
 	render() {
-		let { toggleSidebar } = this.context;
+		const { toggleSidebar } = this.context;
 
 		return (
 			<>
