@@ -8,6 +8,8 @@ import Message from './Message';
 import userDefaultImg from './Images/user.jpg';
 import axios from 'axios';
 import config from '../keys.config';
+import openSocket from 'socket.io-client';
+const socket = openSocket('http://localhost:9000');
 
 const LOCAL_STORAGE_JWT_KEY: string = config.jwtPrefix;
 const LOCAL_STORAGE_AUTH_ID: string = config.authIdPrefix;
@@ -46,6 +48,17 @@ export default class Chat extends Component<Props, State> {
 
 		this.setState({ chatId: chatId }, () => {
 			this.getMessages();
+		});
+
+		socket.on('connect', () => {
+			console.log('Connected');
+			socket.emit('chatMessage', { test: 'test' }, (res: string) => {
+				console.log(res);
+			});
+		});
+
+		socket.on('message', (res: string) => {
+			console.log('safas', res);
 		});
 	}
 
